@@ -16,7 +16,7 @@ interface ExerciseInfoDao {
     fun getExercisesByEquipment(equipmentSelected: String): Array<ExerciseInfo>
 
     @Query("SELECT * FROM exercise_info WHERE body_part = :bodyPart & equipment = :equipmentSelected")
-    fun getExercisesByBodyPartAndEquipment(bodyPart: String, equipmentSelected: String)
+    fun getExercisesByBodyPartAndEquipment(bodyPart: String, equipmentSelected: String): Array<ExerciseInfo>
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun insertExercise(exercise_info: ExerciseInfo)

@@ -1,11 +1,10 @@
 package com.ricoapps.fitfriend.WorkoutDatabase
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
 
 @Database(entities = arrayOf(WorkoutData::class), version = 1)
+@TypeConverters(Converters::class)
 abstract class WorkoutDataDatabase: RoomDatabase() {
     abstract fun workoutDataDao(): WorkoutDataDao
 

@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ricoapps.fitfriend.Database.ExerciseInfo
 import kotlinx.android.synthetic.main.exercise_list_item.view.*
 
-class ExerciseListAdapter(private val exerciseInfo: ArrayList<ExerciseInfo>, val context: Context): RecyclerView.Adapter<ExerciseListAdapter.MyViewHolder>() {
+class ExerciseListAdapter(private val exerciseInfo: ArrayList<ExerciseInfo>, val context: Context) :
+    RecyclerView.Adapter<ExerciseListAdapter.MyViewHolder>() {
     val intent = Intent(context, TrackExerciseActivity::class.java)
     override fun getItemCount(): Int {
         return exerciseInfo.size
@@ -19,7 +20,6 @@ class ExerciseListAdapter(private val exerciseInfo: ArrayList<ExerciseInfo>, val
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(LayoutInflater.from(context).inflate(R.layout.exercise_list_item, parent, false))
     }
-
 
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
@@ -34,7 +34,7 @@ class ExerciseListAdapter(private val exerciseInfo: ArrayList<ExerciseInfo>, val
     }
 
 
-    class MyViewHolder (view: View) : RecyclerView.ViewHolder(view) {
+    class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val exerciseName = view.exerciseNameText
         val muscleName = view.muscleNameText
 

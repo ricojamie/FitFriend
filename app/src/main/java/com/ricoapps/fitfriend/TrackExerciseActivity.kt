@@ -3,26 +3,32 @@ package com.ricoapps.fitfriend
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.ricoapps.fitfriend.WorkoutDatabase.WorkoutData
 import com.ricoapps.fitfriend.WorkoutDatabase.WorkoutDataDatabase
 import kotlinx.android.synthetic.main.activity_track_exercise.*
-import java.sql.Date
 import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.time.Instant
 import java.util.*
 
 class TrackExerciseActivity : AppCompatActivity() {
+    var myDate = Date()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(android.R.style.ThemeOverlay_Material_Dark)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_track_exercise)
 
-        Calendar.getInstance()
-        val date = DateFormat.getDateInstance(DateFormat.FULL)
-
-        Log.d("Testing This", "${date}")
+        val workoutDataList = ArrayList<WorkoutData>()
 
 
+        val formatter = SimpleDateFormat("MMM dd yyyy HH:mma")
+        val answer: String = formatter.format(myDate)
+        Log.d("answer",answer)
+
+        Log.d("Testing This", "${myDate}")
 
 
         val exerciseName = intent.getStringExtra("exercise")
@@ -37,7 +43,24 @@ class TrackExerciseActivity : AppCompatActivity() {
         weightInput.setText(weight.toString())
 
         saveButton.setOnClickListener {
-//            saveWorkout()
+            saveWorkout()
+        }
+
+        button.setOnClickListener {
+            WorkoutDataDatabase.getInstance(applicationContext).workoutDataDao().getAllWorkoutData()
+                .forEach {
+                    workoutDataList.add(
+                        WorkoutData(
+                            it.id,
+                            it.exerciseName,
+                            it.repCount,
+                            it.weight,
+                            it.notes,
+                            it.date
+                        )
+                    )
+                }
+            Log.d("hello", "")
         }
 
         minusButton.setOnClickListener {
@@ -76,13 +99,13 @@ class TrackExerciseActivity : AppCompatActivity() {
         }
     }
 
-//    private fun saveWorkout() {
-//        WorkoutDataDatabase.getInstance(applicationContext).workoutDataDao().insertExercise(WorkoutData(
-//            null, exerciseNameText.text.toString(),
-//            repsInput.toString().toInt(),
-//            weightInput.toString().toDouble(), "", Date.valueOf()))
-//    }
-
+    private fun saveWorkout() {
+        WorkoutDataDatabase.getInstance(applicationContext).workoutDataDao().insertExercise(WorkoutData(
+            null, exerciseNameText.text.toString(),
+            repsInput.text.toString().toInt(),
+            weightInput.text.toString().toDouble(), "", myDate))
+           Log.d("Hello", "It is saved")
+    }
 
 
 }

@@ -3,7 +3,8 @@ package com.ricoapps.fitfriend.WorkoutDatabase
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.sql.Date
+import java.util.*
+
 
 @Entity(tableName = "workout_data")
 
@@ -14,5 +15,5 @@ data class WorkoutData (
     @ColumnInfo(name = "rep_count") var repCount: Int,
     @ColumnInfo(name = "weight") var weight: Double,
     @ColumnInfo(name = "notes") var notes: String,
-    @ColumnInfo(name = "date") var date: Date
+    @ColumnInfo(name = "date") var date: Date?
 )
