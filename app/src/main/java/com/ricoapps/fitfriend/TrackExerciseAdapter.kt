@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Adapter
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.ricoapps.fitfriend.WorkoutDatabase.WorkoutData
@@ -16,7 +17,6 @@ import kotlinx.android.synthetic.main.track_exercise_list.view.*
 
 class TrackExerciseAdapter (private val exerciseSetInfo: ArrayList<WorkoutData>, val context: Context) :
         RecyclerView.Adapter<TrackExerciseAdapter.MyViewHolder>() {
-
 
     var selectedItem = 0
 
@@ -42,8 +42,6 @@ class TrackExerciseAdapter (private val exerciseSetInfo: ArrayList<WorkoutData>,
                 dialog, which -> Log.d("Testing", "${exerciseSetInfo[position].id} Deleted")
                 WorkoutDataDatabase.getInstance(context).workoutDataDao().deleteSet(exerciseSetInfo[position].id)
                 exerciseSetInfo.remove(exerciseSetInfo[position])
-
-
             }
             val dialog: AlertDialog = builder.create()
             dialog.show()

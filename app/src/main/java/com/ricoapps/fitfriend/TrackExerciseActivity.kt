@@ -3,10 +3,12 @@ package com.ricoapps.fitfriend
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ricoapps.fitfriend.WorkoutDatabase.WorkoutData
 import com.ricoapps.fitfriend.WorkoutDatabase.WorkoutDataDatabase
+import kotlinx.android.synthetic.main.activity_exercise_list.*
 import kotlinx.android.synthetic.main.activity_track_exercise.*
 import kotlinx.android.synthetic.main.track_exercise_list.*
 import java.text.SimpleDateFormat
@@ -15,6 +17,8 @@ import java.util.*
 class TrackExerciseActivity : AppCompatActivity() {
     var myDate = Date()
     var theDate :String = ""
+    var weight: Double = 0.0
+    var reps: Int = 0
 
     val workoutDataList = ArrayList<WorkoutData>()
 
@@ -22,6 +26,8 @@ class TrackExerciseActivity : AppCompatActivity() {
         setTheme(android.R.style.ThemeOverlay_Material_Dark)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_track_exercise)
+
+        weight = 0.0
 
         val formatter = SimpleDateFormat("MMM dd yyyy")
         theDate = formatter.format(myDate)
@@ -32,9 +38,6 @@ class TrackExerciseActivity : AppCompatActivity() {
         val exerciseName = intent.getStringExtra("exercise")
 
         Log.d("Howdy", exerciseName)
-
-        var weight: Double = 0.0
-        var reps: Int = 0
 
         exerciseNameText.text = exerciseName
 
@@ -84,64 +87,36 @@ class TrackExerciseActivity : AppCompatActivity() {
         }
 
         addCookie.setOnClickListener {
-            if(!weightInput.text.toString().isNullOrEmpty() || !weightInput.text.toString().isNullOrBlank()){
-                weight = weightInput.text.toString().toDouble()
-                weight += 2.5
-                weightInput.setText(weight.toString())
-            } else {
-                weight = 2.5
-                weightInput.setText(weight.toString())
-                Log.d("Testing stuff", "its blank yo")
-            }
+            addWeight(2.5)
         }
 
         addDonut.setOnClickListener {
-           if(!weightInput.text.toString().isNullOrEmpty() || !weightInput.text.toString().isNullOrBlank()){
-               weight = weightInput.text.toString().toDouble()
-               weight += 5
-               weightInput.setText(weight.toString())
-           } else {
-               weight = 5.0
-               weightInput.setText(weight.toString())
-               Log.d("Testing stuff", "its blank yo")
-           }
-
+          addWeight(5.0)
         }
 
         addTen.setOnClickListener {
-            if(!weightInput.text.toString().isNullOrEmpty() || !weightInput.text.toString().isNullOrBlank()){
-                weight = weightInput.text.toString().toDouble()
-                weight += 10
-                weightInput.setText(weight.toString())
-            } else {
-                weight = 10.0
-                weightInput.setText(weight.toString())
-                Log.d("Testing stuff", "its blank yo")
-            }
+            addWeight(10.0)
         }
 
         addTwentyFive.setOnClickListener {
-            if(!weightInput.text.toString().isNullOrEmpty() || !weightInput.text.toString().isNullOrBlank()){
-                weight = weightInput.text.toString().toDouble()
-                weight += 25
-                weightInput.setText(weight.toString())
-            } else {
-                weight = 25.0
-                weightInput.setText(weight.toString())
-                Log.d("Testing stuff", "its blank yo")
-            }
+            addWeight(25.0)
         }
 
         addFourtyFive.setOnClickListener {
-            if(!weightInput.text.toString().isNullOrEmpty() || !weightInput.text.toString().isNullOrBlank()){
-                weight = weightInput.text.toString().toDouble()
-                weight += 45
-                weightInput.setText(weight.toString())
-            } else {
-                weight = 45.0
-                weightInput.setText(weight.toString())
-                Log.d("Testing stuff", "its blank yo")
-            }
+          addWeight(45.0)
+        }
+
+    }
+    
+    private fun addWeight(amount: Double) {
+        if(!weightInput.text.toString().isNullOrEmpty() || !weightInput.text.toString().isNullOrBlank()){
+            weight = weightInput.text.toString().toDouble()
+            weight += amount
+            weightInput.setText(weight.toString())
+        } else {
+            weight = amount
+            weightInput.setText(weight.toString())
+            Log.d("Testing stuff", "its blank yo")
         }
     }
 

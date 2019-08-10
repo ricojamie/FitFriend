@@ -26,6 +26,8 @@ class ExerciseList : AppCompatActivity() {
 
         exerciseInfoList.clear()
 
+//        ExercisesDatabase.getInstance(applicationContext).exerciseInfoDao().insertExercise(ExerciseInfo("Bench Press", "Chest", "Barbell"))
+
         ExercisesDatabase.getInstance(applicationContext).exerciseInfoDao().getAllExercises()
             .forEach {
                 exerciseInfoList.add(
